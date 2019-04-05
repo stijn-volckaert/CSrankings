@@ -9,8 +9,8 @@ TARGETS = csrankings.js generated-author-info.csv
 
 .PHONY: home-pages scholar-links fix-affiliations update-dblp clean-dblp download-dblp shrink-dblp
 
-PYTHON = python2.7
-PYPY   = pypy
+PYTHON = python3
+PYPY   = python3
 
 all: generated-author-info.csv csrankings.js # fix-affiliations home-pages scholar-links
 
@@ -20,7 +20,7 @@ clean:
 csrankings.js: csrankings.ts
 	@echo "Rebuilding JavaScript code."
 	tsc --project tsconfig.json
-	closure-compiler --js csrankings.js > csrankings.min.js
+	google-closure-compiler --js csrankings.js > csrankings.min.js
 
 update-dblp:
 	$(MAKE) download-dblp

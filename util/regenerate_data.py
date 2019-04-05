@@ -210,34 +210,34 @@ def dump_it():
     global authlogs
     global interestingauthors
     global facultydict
-    with open('generated-author-info.csv','w') as f:
-        f.write('"name","dept","area","count","adjustedcount","year"\n')
-        authorscores = collections.OrderedDict(sorted(authorscores.iteritems()))
-        for ((authorName, area, year), count) in authorscores.iteritems():
+    with open('generated-author-info.csv','wb') as f: 
+        f.write('"name","dept","area","count","adjustedcount","year"\n'.encode())
+        authorscores = collections.OrderedDict(sorted(authorscores.items()))
+        for ((authorName, area, year), count) in authorscores.items():
             # count = authorscores[(authorName, area, year)]
             countAdjusted = authorscoresAdjusted[(authorName, area, year)]
             f.write(authorName.encode('utf-8'))
-            f.write(',')
+            f.write(','.encode())
             f.write((facultydict[authorName].encode('utf-8')))
-            f.write(',')
-            f.write(area)
+            f.write(','.encode())
+            f.write(area.encode())
 #            f.write(',')
 #            f.write(subarea)
-            f.write(',')
-            f.write(str(count))
-            f.write(',')
-            f.write(str(countAdjusted))
-            f.write(',')
-            f.write(str(year))
-            f.write('\n')
+            f.write(','.encode())
+            f.write(str(count).encode())
+            f.write(','.encode())
+            f.write(str(countAdjusted).encode())
+            f.write(','.encode())
+            f.write(str(year).encode())
+            f.write('\n'.encode())
 
     with open('articles.json','w') as f:
         z = []
         authlogs = collections.OrderedDict(sorted(authlogs.items()))
-        for v, l in authlogs.iteritems():
+        for v, l in authlogs.items():
             if v in interestingauthors:
                 for s in sorted(l, key=lambda x: x['name'].decode('utf-8')+str(x['year'])+x['conf']+x['title'].decode('utf-8')):
-                    z.append(s)
+                    z.append(str(s))
         json.dump(z, f, indent=2)
 
 def main():
